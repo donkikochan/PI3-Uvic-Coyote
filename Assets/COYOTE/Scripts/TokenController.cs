@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TokenController : MonoBehaviour
 {
+
+    private int num;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +16,15 @@ public class TokenController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public int getNum()
+    {
+        return num;
+    }
+
+    public void setNum(int num)
+    {
+        this.num = num;
     }
 }
