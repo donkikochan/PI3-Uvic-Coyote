@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class TokenController : MonoBehaviour
 {
@@ -8,11 +10,11 @@ public class TokenController : MonoBehaviour
     public GameObject greenTokenModelPrefab;
     public GameObject blueTokenModelPrefab;
     private int num;
+    private float tokenScale = 0.05f;
     // Start is called before the first frame update
     void Start()
     {
-        setNum(Random.Range(-20, 20));
-
+        
         GameObject selectedModel;
         switch (num)
         {
@@ -27,6 +29,9 @@ public class TokenController : MonoBehaviour
                 break;
         }
         selectedModel.transform.parent = this.transform;
+        selectedModel.transform.localPosition = new Vector3(0, 4, -0.185f);
+
+        transform.localScale = new Vector3(tokenScale, tokenScale, tokenScale);
     }
 
     // Update is called once per frame
@@ -43,5 +48,6 @@ public class TokenController : MonoBehaviour
     public void setNum(int num)
     {
         this.num = num;
+        GetComponentInChildren<TMP_Text>().text = ""+getNum();
     }
 }

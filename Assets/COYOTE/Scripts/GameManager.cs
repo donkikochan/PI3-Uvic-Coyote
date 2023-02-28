@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public List<int> allTokenNums = new List<int>();
+    public GameObject tokenPrefab;
 
     private int sumTotal;
     private TurnController tc;
@@ -15,6 +17,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         currState = State.selectToken;
+        spawnTokens();
     }
 
     private void Awake()
@@ -51,4 +54,15 @@ public class GameManager : MonoBehaviour
         return sumTotal;
     }
     // TODO -- Spawn dels tokens
+    public void spawnTokens()
+    {
+        int i = 0;
+        foreach(int tokenNum in allTokenNums)
+        {
+            GameObject newToken = Instantiate(tokenPrefab, new Vector3(transform.position.x,transform.position.y+(i*1),transform.position.z), Quaternion.identity);
+            newToken.GetComponent<TokenController>().setNum(tokenNum);
+            i++;
+        }
+        
+    }
 }
