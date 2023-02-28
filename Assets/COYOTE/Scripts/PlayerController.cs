@@ -5,13 +5,18 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private TokenController actualToken;
-    public int num;
+    public int tokenNum;
+    int selectedNum;
+    int loses;
     public bool activeTurn;
     private TurnController tc;
+    List<int> numRecord = new List<int>();
     // Start is called before the first frame update
     void Start()
     {
-        num = actualToken.getNum();
+        //if (newGame)
+        tokenNum = actualToken.getNum();
+        loses = 0;
     }
 
     private void Awake()
@@ -32,10 +37,18 @@ public class PlayerController : MonoBehaviour
         int sumTotal = 0;
         foreach(PlayerController player in tc.getPlayers())
         {
-            sumTotal += player.num;
+            sumTotal += player.tokenNum;
         }
-        sumTotal -= num;
+        sumTotal -= tokenNum;
         return sumTotal;
+    }
+    public int getSelectedNum()
+    {
+        return selectedNum;
+    }
+    public void addLoss()
+    {
+        loses++;
     }
 
 

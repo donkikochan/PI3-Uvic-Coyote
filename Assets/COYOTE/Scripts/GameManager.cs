@@ -37,12 +37,18 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+    // Suma total de tots els tokens de la partida
     public void setSumTotal()
     {
         sumTotal = 0;
         foreach (PlayerController player in tc.getPlayers())
         {
-            sumTotal += player.num;
+            sumTotal += player.tokenNum;
         }
     }
+    public int getSumTotal()
+    {
+        return sumTotal;
+    }
+    // TODO -- Spawn dels tokens
 }

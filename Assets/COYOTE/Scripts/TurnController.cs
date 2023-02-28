@@ -7,7 +7,7 @@ public class TurnController : MonoBehaviour
 
     private List<PlayerController> players = new List<PlayerController>();
     public GameManager gm;
-    private int actPlayer;
+    private int actPlayer, prevPlayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +42,23 @@ public class TurnController : MonoBehaviour
 
     public void nextTurn()
     {
-        
+        players[actPlayer].activeTurn = false;
+        prevPlayer = actPlayer;
+        actPlayer++;
+        actPlayer = actPlayer >= players.Count ? 0 : actPlayer;
+        players[actPlayer].activeTurn = true;
+    }
+    public void endGame()
+    {
+        players[actPlayer].activeTurn = false;
+        if(players[prevPlayer].getSelectedNum() <= gm.getSumTotal())
+        {
+            players[actPlayer].addLoss();
+        }
+        else
+        {
+            players[prevPlayer].addLoss();
+        }
     }
 }
 
