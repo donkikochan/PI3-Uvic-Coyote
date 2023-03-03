@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class GameManager : MonoBehaviour
 {
     public List<int> allTokenNums = new List<int>();
+    public float maxDistanceToSpawnToken = 1.0f;
+    public int tokenPerRotation = 8;
     public GameObject tokenPrefab;
+    public Transform tokenSpawner;
 
     private int sumTotal;
     private TurnController tc;
@@ -53,14 +57,23 @@ public class GameManager : MonoBehaviour
     {
         return sumTotal;
     }
-    // TODO -- Spawn dels tokens
+    // TODO -- Spawn dels tokens en una àrea circular al voltant del "TokenSpawner"
     public void spawnTokens()
     {
         int i = 0;
-        foreach(int tokenNum in allTokenNums)
+        Transform tokenSpawnPos = tokenSpawner.GetChild(0);
+        foreach (int tokenNum in allTokenNums)
         {
-            GameObject newToken = Instantiate(tokenPrefab, new Vector3(transform.position.x,transform.position.y+(i*1),transform.position.z), Quaternion.identity);
+            GameObject newToken = Instantiate(tokenPrefab,
+                new Vector3(tokenSpawnPos.position.x,
+                tokenSpawnPos.position.y + (Mathf.Ceil(i/tokenPerRotation)*0.1f),
+                tokenSpawnPos.position.z), Quaternion.identity);
+            
             newToken.GetComponent<TokenController>().setNum(tokenNum);
+            newToken.transform.LookAt(tokenSpawner);
+            newToken.transform.Rotate(new Vector3(0, 90, 90));
+
+            tokenSpawner.Rotate(new Vector3(0, (1f / tokenPerRotation) * 360, 0));
             i++;
         }
         
