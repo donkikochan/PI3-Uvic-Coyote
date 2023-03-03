@@ -30,8 +30,10 @@ public class TokenController : MonoBehaviour
         }
         selectedModel.transform.parent = this.transform;
         selectedModel.transform.localPosition = new Vector3(0, 4, -0.185f);
+        selectedModel.transform.localEulerAngles = new Vector3(0, 90, 90);
 
         transform.localScale = new Vector3(tokenScale, tokenScale, tokenScale);
+
     }
 
     // Update is called once per frame
