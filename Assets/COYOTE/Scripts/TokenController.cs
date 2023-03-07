@@ -68,6 +68,12 @@ public class TokenController : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        
+        //TODO -- Assignar aquest token al jugador
+
+        if (!FindObjectOfType<PlayerController>().hasToken())
+        {
+            FindObjectOfType<PlayerController>().setToken(this);
+            GetComponent<Rigidbody>().isKinematic = true;
+        }
     }
 }

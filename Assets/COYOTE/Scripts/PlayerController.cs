@@ -15,13 +15,12 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         //if (newGame)
-        tokenNum = actualToken.getNum();
+        
         loses = 0;
     }
 
     private void Awake()
     {
-        actualToken = GetComponent<TokenController>();
         tc = GameObject.FindObjectOfType<TurnController>();
     }
 
@@ -41,6 +40,16 @@ public class PlayerController : MonoBehaviour
         }
         sumTotal -= tokenNum;
         return sumTotal;
+    }
+    public void setToken(TokenController tc)
+    {
+        actualToken = tc;
+        tokenNum = actualToken.getNum();
+        tc.transform.position = transform.position;
+    }
+    public bool hasToken()
+    {
+        return actualToken != null;
     }
     public int getSelectedNum()
     {
