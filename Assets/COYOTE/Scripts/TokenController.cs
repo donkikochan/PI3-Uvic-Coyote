@@ -6,10 +6,14 @@ using TMPro;
 
 public class TokenController : MonoBehaviour
 {
+    [Header("Models dels Tokens")]
     public GameObject redTokenModelPrefab;
     public GameObject greenTokenModelPrefab;
     public GameObject blueTokenModelPrefab;
+    [Space(10)]
+    [Header("Característiques del Token")]
     public int num;
+    public bool isSelected;
 
     private float tokenScale = 0.05f;
     Color _startColor;
@@ -69,11 +73,11 @@ public class TokenController : MonoBehaviour
     private void OnMouseDown()
     {
         //TODO -- Assignar aquest token al jugador
-
-        if (!FindObjectOfType<PlayerController>().hasToken())
+        PlayerController pc = Camera.main.transform.parent.GetComponent<PlayerController>();
+        if (!pc.hasToken())
         {
-            FindObjectOfType<PlayerController>().setToken(this);
-            GetComponent<Rigidbody>().isKinematic = true;
+            pc.setToken(this);
+            
         }
     }
 }

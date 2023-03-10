@@ -43,9 +43,15 @@ public class PlayerController : MonoBehaviour
     }
     public void setToken(TokenController tc)
     {
+        //Colocar token seleccionat al cap del jugador
         actualToken = tc;
+        tc.GetComponent<Rigidbody>().isKinematic = true;
+        tc.isSelected = true;
         tokenNum = actualToken.getNum();
         tc.transform.position = transform.position;
+        tc.transform.parent = transform;
+        tc.transform.rotation = transform.rotation;
+        tc.transform.Rotate(new Vector3(0, 90, 0));
     }
     public bool hasToken()
     {

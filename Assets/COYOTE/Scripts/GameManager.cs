@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("SelectToken State")]
+    [Header("Generació de tokens")]
     public List<int> allTokenNums = new List<int>();
     public float distanceFromTokenSpawnerCenter = 1.0f;
     public float addDistanceFromTokenSpawnerCenter = 0.1f;
@@ -12,18 +14,21 @@ public class GameManager : MonoBehaviour
     public GameObject tokenPrefab;
     public Transform tokenSpawner;
 
+    List<TokenController> allTokens = new List<TokenController>();
+
     private int sumTotal;
     private TurnController tc;
 
     public enum State { selectToken, inMatch, endMatch, dead };
+    [Space(20)]
     public State currState;
 
     // Start is called before the first frame update
     void Start()
     {
-        currState = State.selectToken;
-        //Inici de l'spawn dels Tokens
-        StartCoroutine(SpawnTokens());
+        changeState(State.selectToken);
+        
+        
     }
 
     private void Awake()
@@ -46,6 +51,23 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+    void changeState(State state)
+    {
+        switch (state)
+        {
+            case State.selectToken:
+                //Inici de l'spawn dels Tokens
+                StartCoroutine(SpawnTokens());
+                break;
+            case State.inMatch:
+                break;
+            case State.endMatch:
+                break;
+            case State.dead:
+                break;
+        }
+        currState = state;
+    }
     // Suma total de tots els tokens de la partida
     public void setSumTotal()
     {
@@ -59,6 +81,7 @@ public class GameManager : MonoBehaviour
     {
         return sumTotal;
     }
+    #region SelectToken State - Methods
     //Spawn dels tokens en una àrea circular al voltant del "TokenSpawner" cada 0.1 segons
     IEnumerator SpawnTokens()
     {
@@ -81,6 +104,7 @@ public class GameManager : MonoBehaviour
                 tokenSpawnPos.position.y + (Mathf.Ceil(i / tokenPerRotation) * 0.1f),
                 tokenSpawnPos.position.z), Quaternion.identity);
 
+            allTokens.Add(newToken.GetComponent<TokenController>());
             newToken.GetComponent<TokenController>().setNum(selectedTokenNum);
             newToken.transform.LookAt(tokenSpawner);
             newToken.transform.Rotate(new Vector3(0, 90, 90));
@@ -95,5 +119,15 @@ public class GameManager : MonoBehaviour
             }
             yield return new WaitForSeconds(0.1f);
         }
+        updateBots();
+        
     }
+    void updateBots()
+    {
+        foreach (PlayerBot bot in FindObjectsOfType<PlayerBot>())
+        {
+            bot.setAvaiableTokens(allTokens);
+        }
+    }
+    #endregion
 }
