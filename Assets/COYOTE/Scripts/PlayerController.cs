@@ -15,13 +15,12 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         //if (newGame)
-        tokenNum = actualToken.getNum();
+        
         loses = 0;
     }
 
     private void Awake()
     {
-        actualToken = GetComponent<TokenController>();
         tc = GameObject.FindObjectOfType<TurnController>();
     }
 
@@ -41,6 +40,22 @@ public class PlayerController : MonoBehaviour
         }
         sumTotal -= tokenNum;
         return sumTotal;
+    }
+    public void setToken(TokenController tc)
+    {
+        //Colocar token seleccionat al cap del jugador
+        actualToken = tc;
+        tc.GetComponent<Rigidbody>().isKinematic = true;
+        tc.isSelected = true;
+        tokenNum = actualToken.getNum();
+        tc.transform.position = transform.position;
+        tc.transform.parent = transform;
+        tc.transform.rotation = transform.rotation;
+        tc.transform.Rotate(new Vector3(0, 90, 0));
+    }
+    public bool hasToken()
+    {
+        return actualToken != null;
     }
     public int getSelectedNum()
     {
