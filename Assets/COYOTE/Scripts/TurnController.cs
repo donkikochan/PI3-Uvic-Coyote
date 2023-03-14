@@ -31,13 +31,13 @@ public class TurnController : MonoBehaviour
     }
     public void addPlayer(PlayerController newPlayer)
     {
+        Debug.Log("addPlayer");
         players.Add(newPlayer);
     }
     public void startGame()
     {
         actPlayer = Random.Range(0, players.Count);
         players[actPlayer].activeTurn = true;
-        gm.currState = GameManager.State.inMatch;
     }   
 
     public void nextTurn()

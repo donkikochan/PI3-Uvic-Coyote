@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 
 public class GameManager : MonoBehaviour
 {
+    #region SelectToken State - Attributes
     [Header("SelectToken State")]
+    
     [Header("Generació de tokens")]
     public List<int> allTokenNums = new List<int>();
     public float distanceFromTokenSpawnerCenter = 1.0f;
@@ -15,6 +17,9 @@ public class GameManager : MonoBehaviour
     public Transform tokenSpawner;
 
     List<TokenController> allTokens = new List<TokenController>();
+    #endregion
+
+
 
     private int sumTotal;
     private TurnController tc;
@@ -60,12 +65,19 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(SpawnTokens());
                 break;
             case State.inMatch:
+                foreach(TokenController token in allTokens)
+                {
+                    if(!token.isSelected) Destroy(token.gameObject);
+                }
+                allTokens.Clear();
+                tc.startGame();
                 break;
             case State.endMatch:
                 break;
             case State.dead:
                 break;
         }
+        Debug.Log("changeState: to " + state);
         currState = state;
     }
     // Suma total de tots els tokens de la partida
@@ -80,6 +92,14 @@ public class GameManager : MonoBehaviour
     public int getSumTotal()
     {
         return sumTotal;
+    }
+    private void OnEnable()
+    {
+        PlayerController.OnPlayerAddedToken += checkStateEnded;
+    }
+    private void OnDisable()
+    {
+        PlayerController.OnPlayerAddedToken -= checkStateEnded;
     }
     #region SelectToken State - Methods
     //Spawn dels tokens en una àrea circular al voltant del "TokenSpawner" cada 0.1 segons
@@ -129,5 +149,41 @@ public class GameManager : MonoBehaviour
             bot.setAvaiableTokens(allTokens);
         }
     }
+    bool haveAllPlayersChoosenToken()
+    {
+        bool tmp = true;
+        for(int i = 0; i < tc.getPlayers().Count; i++)
+        {
+            if (!tc.getPlayers()[i].hasToken())
+            {
+                tmp = false;
+                break;
+            }
+        }
+        return tmp;
+    }
+    void checkStateEnded()
+    {
+        Debug.Log("checkStateEnded");
+        switch (currState)
+        {
+            case State.selectToken:
+                if (haveAllPlayersChoosenToken())
+                {
+                    changeState(State.inMatch);
+                }
+                break;
+            case State.inMatch:
+                break;
+            case State.endMatch:
+                break;
+            case State.dead:
+                break;
+        }
+        
+    }
+    #endregion
+    #region InGame State - Methods
+
     #endregion
 }
