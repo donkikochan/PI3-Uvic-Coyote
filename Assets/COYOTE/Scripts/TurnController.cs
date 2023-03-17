@@ -6,12 +6,13 @@ public class TurnController : MonoBehaviour
 {
 
     private List<PlayerController> players = new List<PlayerController>();
+    public GameObject turnIndicator;
     public GameManager gm;
     private int actPlayer, prevPlayer;
     // Start is called before the first frame update
     void Start()
     {
-        
+        turnIndicator.SetActive(false);
     }
 
     private void Awake()
@@ -38,6 +39,8 @@ public class TurnController : MonoBehaviour
     {
         actPlayer = Random.Range(0, players.Count);
         players[actPlayer].activeTurn = true;
+        turnIndicator.SetActive(true);
+        rotateTurnIndicator();
     }   
 
     public void nextTurn()
@@ -47,6 +50,7 @@ public class TurnController : MonoBehaviour
         actPlayer++;
         actPlayer = actPlayer >= players.Count ? 0 : actPlayer;
         players[actPlayer].activeTurn = true;
+        rotateTurnIndicator();
     }
     public void endGame()
     {
@@ -59,6 +63,13 @@ public class TurnController : MonoBehaviour
         {
             players[prevPlayer].addLoss();
         }
+        turnIndicator.SetActive(false);
+    }
+    void rotateTurnIndicator()
+    {
+        Vector3 tiLookingPoint = players[actPlayer].transform.position;
+        tiLookingPoint.y = turnIndicator.transform.position.y;
+        turnIndicator.transform.LookAt(tiLookingPoint);
     }
 }
 

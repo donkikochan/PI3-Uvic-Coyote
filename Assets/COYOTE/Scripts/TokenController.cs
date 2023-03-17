@@ -72,12 +72,13 @@ public class TokenController : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        //TODO -- Assignar aquest token al jugador
+        //Assignar aquest token al jugador
         PlayerController pc = Camera.main.transform.parent.GetComponent<PlayerController>();
         if (!pc.hasToken())
         {
             pc.setToken(this);
-            
+            //TODO -- Borrar aquest "isMine" quan s'implementi el multiplayer
+            pc.isMine = true;
         }
     }
 }

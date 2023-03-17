@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     int selectedNum;
     int loses;
     public bool activeTurn;
+    //TODO -- Borrar aquest "isMine" quan s'implementi el multiplayer
+    public bool isMine;
     private TurnController _tc;
     List<int> numRecord = new List<int>();
     // Start is called before the first frame update
