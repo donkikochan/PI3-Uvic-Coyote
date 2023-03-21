@@ -6,6 +6,7 @@ public class TurnController : MonoBehaviour
 {
 
     private List<PlayerController> players = new List<PlayerController>();
+    public bool playerIsFirst;
     public GameObject turnIndicator;
     public GameManager gm;
     private int actPlayer, prevPlayer;
@@ -37,7 +38,21 @@ public class TurnController : MonoBehaviour
     }
     public void startGame()
     {
-        actPlayer = Random.Range(0, players.Count);
+        if (playerIsFirst)
+        {
+            for(int i = 0;i<players.Count;i++)
+            {
+                if (players[i].isMine)
+                {
+                    actPlayer = i;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            actPlayer = Random.Range(0, players.Count);
+        }
         players[actPlayer].activeTurn = true;
         turnIndicator.SetActive(true);
         rotateTurnIndicator();
