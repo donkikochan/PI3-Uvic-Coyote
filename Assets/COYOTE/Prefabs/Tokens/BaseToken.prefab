@@ -50,6 +50,7 @@ MonoBehaviour:
   redTokenModelPrefab: {fileID: 3715433028924257987, guid: 914734e01b3115342967065b210bbb20, type: 3}
   greenTokenModelPrefab: {fileID: 4101133283047245879, guid: b0267f6a83bdbb340863107acca19c15, type: 3}
   blueTokenModelPrefab: {fileID: 7505603894702009264, guid: 58234c04b652f7249a4847dcd840e1ee, type: 3}
+  num: 0
 --- !u!54 &8847183818913639335
 Rigidbody:
   m_ObjectHideFlags: 0
