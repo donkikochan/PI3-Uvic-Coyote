@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using TMPro;
 using System.Threading.Tasks;
 
 public class GameManager : MonoBehaviour
 {
+    #region SelectToken State - Attributes
     [Header("SelectToken State")]
+    
     [Header("Generació de tokens")]
     public List<int> allTokenNums = new List<int>();
     public float distanceFromTokenSpawnerCenter = 1.0f;
@@ -15,9 +19,16 @@ public class GameManager : MonoBehaviour
     public Transform tokenSpawner;
 
     List<TokenController> allTokens = new List<TokenController>();
+    #endregion
+
+    public class InfoPanelEvent : UnityEvent<List<string>>
+    {
+    }
+    public InfoPanelEvent onInfoPanelChange = new InfoPanelEvent();
 
     private int sumTotal;
     private TurnController tc;
+    private GameObject infoPanel;
 
     public enum State { selectToken, inMatch, endMatch, dead };
     [Space(20)]
@@ -27,13 +38,15 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         changeState(State.selectToken);
-        
+        onInfoPanelChange.AddListener(infoPanelListener);
+        showInfoPanel(false);
         
     }
 
     private void Awake()
     {
         tc = GetComponent<TurnController>();
+        infoPanel = GameObject.Find("InfoPanel");
     }
 
     // Update is called once per frame
@@ -50,6 +63,64 @@ public class GameManager : MonoBehaviour
             case State.dead:
                 break;
         }
+
+        if (Input.GetKeyDown("p"))
+        {
+            showInfoPanel(!infoPanel.activeInHierarchy);
+        }
+        if (infoPanel.activeInHierarchy) updateInfoPanel();
+    }
+    void showInfoPanel(bool show)
+    {
+        infoPanel.SetActive(show);
+    }
+    void updateInfoPanel()
+    {
+        List<string> textsInInfoPanel = new List<string>();
+
+        PlayerController myPlayer = FindObjectOfType<PlayerController>();
+        foreach (PlayerController pc in FindObjectsOfType<PlayerController>())
+        {
+            if (pc.isMine)
+            {
+                myPlayer = pc;
+                break;
+            }
+        }
+
+        textsInInfoPanel.Add("State: " + currState);
+        textsInInfoPanel.Add("SumTotal (Player): " + myPlayer.sumTotal());
+        textsInInfoPanel.Add("SumTotal (Game): " + getSumTotal());
+        onInfoPanelChange.Invoke(textsInInfoPanel);
+    }
+    
+    void infoPanelListener(List<string> list)
+    {
+        Transform textsParent = infoPanel.transform.GetChild(0);
+        if(textsParent.childCount != list.Count)
+        {
+            List<GameObject> oldTexts = new List<GameObject>();
+            foreach(Transform child in textsParent)
+            {
+                oldTexts.Add(child.gameObject);
+            }
+            for(int i = 0; i < list.Count; i++)
+            {
+                GameObject newText = Instantiate(oldTexts[0]);
+                newText.GetComponent<TMP_Text>().text = list[i];
+            }
+            foreach(GameObject old in oldTexts)
+            {
+                Destroy(old);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                textsParent.GetChild(i).GetComponent<TMP_Text>().text = list[i];
+            }
+        }
     }
     void changeState(State state)
     {
@@ -60,12 +131,15 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(SpawnTokens());
                 break;
             case State.inMatch:
+                tc.startGame();
+                setSumTotal();
                 break;
             case State.endMatch:
                 break;
             case State.dead:
                 break;
         }
+        Debug.Log("changeState: to " + state);
         currState = state;
     }
     // Suma total de tots els tokens de la partida
@@ -80,6 +154,14 @@ public class GameManager : MonoBehaviour
     public int getSumTotal()
     {
         return sumTotal;
+    }
+    private void OnEnable()
+    {
+        PlayerController.OnPlayerAddedToken += checkStateEnded;
+    }
+    private void OnDisable()
+    {
+        PlayerController.OnPlayerAddedToken -= checkStateEnded;
     }
     #region SelectToken State - Methods
     //Spawn dels tokens en una àrea circular al voltant del "TokenSpawner" cada 0.1 segons
@@ -129,5 +211,49 @@ public class GameManager : MonoBehaviour
             bot.setAvaiableTokens(allTokens);
         }
     }
+    bool haveAllPlayersChoosenToken()
+    {
+        bool tmp = true;
+        for(int i = 0; i < tc.getPlayers().Count; i++)
+        {
+            if (!tc.getPlayers()[i].hasToken())
+            {
+                tmp = false;
+                break;
+            }
+        }
+        return tmp;
+    }
+
     #endregion
+    #region InGame State - Methods
+
+    #endregion
+    void checkStateEnded()
+    {
+        Debug.Log("checkStateEnded");
+        switch (currState)
+        {
+            case State.selectToken:
+                if (haveAllPlayersChoosenToken())
+                {
+                    foreach (TokenController token in allTokens)
+                    {
+                        if (!token.isSelected) Destroy(token.gameObject);
+                    }
+                    allTokens.Clear();
+                    changeState(State.inMatch);
+                }
+                break;
+            case State.inMatch:
+                break;
+            case State.endMatch:
+                break;
+            case State.dead:
+                break;
+        }
+
+    }
+
+
 }
