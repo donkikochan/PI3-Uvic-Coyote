@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using TMPro;
 
-public class LoginManager :MonoBehaviourPunCallbacks
+public class LoginManager: MonoBehaviourPunCallbacks
 {
     public TMP_InputField PlayerName;
     #region Unity Methods
@@ -26,11 +26,13 @@ public class LoginManager :MonoBehaviourPunCallbacks
         {
             PhotonNetwork.NickName = PlayerName.text;
             PhotonNetwork.ConnectUsingSettings();
-        }
-        
+        }  
     }
-
-
+    public void UIConnectWithName(string name)
+    {
+        PhotonNetwork.NickName = name;
+        PhotonNetwork.ConnectUsingSettings();
+    }
     #endregion
     #region Photon Callback Methods
     public override void OnConnected()
@@ -41,6 +43,7 @@ public class LoginManager :MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("OnConnected to Master Server with player name: " + PhotonNetwork.NickName);
+        PhotonNetwork.LoadLevel("LobyScene");
     }
     #endregion
 }
