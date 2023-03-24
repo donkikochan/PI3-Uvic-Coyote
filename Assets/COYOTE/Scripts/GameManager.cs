@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     private TurnController tc;
     private GameObject infoPanel;
 
+    public static GameManager instance;
+
     public enum State { selectToken, inMatch, endMatch, dead };
     [Space(20)]
     public State currState;
@@ -37,6 +39,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        tc = TurnController.instance;
+
         changeState(State.selectToken);
         onInfoPanelChange.AddListener(infoPanelListener);
         showInfoPanel(false);
@@ -45,7 +49,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        tc = GetComponent<TurnController>();
+        instance = this;
+
         infoPanel = GameObject.Find("InfoPanel");
     }
 

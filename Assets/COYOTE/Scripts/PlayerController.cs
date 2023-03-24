@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        _tc = GameObject.FindObjectOfType<TurnController>();
+        _tc = TurnController.instance;
         _tc.addPlayer(this);
     }
 
@@ -72,6 +72,10 @@ public class PlayerController : MonoBehaviour
     public int getSelectedNum()
     {
         return selectedNum;
+    }
+    public void setSelectedNum(int num)
+    {
+        selectedNum = num;
     }
     public void addLoss()
     {
