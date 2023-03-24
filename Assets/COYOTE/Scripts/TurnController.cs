@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TurnController : MonoBehaviour
 {
+    public static TurnController instance;
+
 
     private List<PlayerController> players = new List<PlayerController>();
     public bool playerIsFirst;
@@ -13,18 +15,24 @@ public class TurnController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gm = GameManager.instance;
         turnIndicator.SetActive(false);
     }
 
     private void Awake()
     {
-        gm = GetComponent<GameManager>();
+        instance = this;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+    public PlayerController getActualPlayer()
+    {
+        return players[actPlayer];
     }
 
     public List<PlayerController> getPlayers()
@@ -53,36 +61,36 @@ public class TurnController : MonoBehaviour
         {
             actPlayer = Random.Range(0, players.Count);
         }
-        players[actPlayer].activeTurn = true;
+        getActualPlayer().activeTurn = true;
         turnIndicator.SetActive(true);
         rotateTurnIndicator();
     }   
 
     public void nextTurn()
     {
-        players[actPlayer].activeTurn = false;
+        getActualPlayer().activeTurn = false;
         prevPlayer = actPlayer;
         actPlayer++;
         actPlayer = actPlayer >= players.Count ? 0 : actPlayer;
-        players[actPlayer].activeTurn = true;
+        getActualPlayer().activeTurn = true;
         rotateTurnIndicator();
     }
     public void endGame()
     {
-        players[actPlayer].activeTurn = false;
-        if(players[prevPlayer].getSelectedNum() <= gm.getSumTotal())
+        getActualPlayer().activeTurn = false;
+        if(getActualPlayer().getSelectedNum() <= gm.getSumTotal())
         {
-            players[actPlayer].addLoss();
+            getActualPlayer().addLoss();
         }
         else
         {
-            players[prevPlayer].addLoss();
+            getActualPlayer().addLoss();
         }
         turnIndicator.SetActive(false);
     }
     void rotateTurnIndicator()
     {
-        Vector3 tiLookingPoint = players[actPlayer].transform.position;
+        Vector3 tiLookingPoint = getActualPlayer().transform.position;
         tiLookingPoint.y = turnIndicator.transform.position.y;
         turnIndicator.transform.LookAt(tiLookingPoint);
     }
