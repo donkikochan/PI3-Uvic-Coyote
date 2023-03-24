@@ -23,6 +23,7 @@ public class PlayerBot : MonoBehaviour
     {
 
     }
+    #region State - SelectToken
     public void setAvaiableTokens(List<TokenController> aTokens)
     {
         avaiableTokens = aTokens;
@@ -51,4 +52,16 @@ public class PlayerBot : MonoBehaviour
         clearUnavaiableTokens();
         _pc.setToken(avaiableTokens[Random.Range(0, avaiableTokens.Count)]);
     }
+    #endregion
+    #region State - InMatch
+    //TODO -- Gestió del bot per triar un número o cap
+    void selectNumber()
+    {
+
+    }
+    IEnumerator ChooseNumber()
+    {
+        yield return new WaitForSeconds(5f);
+    }
+    #endregion
 }
