@@ -4,7 +4,15 @@ using UnityEngine;
 
 public class PlayerBot : MonoBehaviour
 {
+    [Header("SelectToken State")]
     public Vector2 randomTimeBeforeChooseToken = new Vector2(2f,5f);
+    [Header("inGame State")]
+    public Vector2 randomTimeBeforeChooseNumber = new Vector2(2f, 5f);
+    public int maxChoosingNum = 10;
+    [Range(0, 100)]
+    public int probOfEndRound = 10;
+    [Range(0, 25)]
+    public int increasedProbOfEndRound = 5;
     List<TokenController> avaiableTokens = new List<TokenController>();
 
     PlayerController _pc;
@@ -15,7 +23,6 @@ public class PlayerBot : MonoBehaviour
     }
     void Start()
     {
-        StartCoroutine(ChooseToken(Random.Range(randomTimeBeforeChooseToken.x,randomTimeBeforeChooseToken.y)));
     }
 
     // Update is called once per frame
@@ -45,6 +52,10 @@ public class PlayerBot : MonoBehaviour
             isCleared = true;
         }
     }
+    public void StartChoosingToken()
+    {
+        StartCoroutine(ChooseToken(Random.Range(randomTimeBeforeChooseToken.x, randomTimeBeforeChooseToken.y)));
+    }
     IEnumerator ChooseToken(float timeBeforeChoose)
     {
 
@@ -55,13 +66,25 @@ public class PlayerBot : MonoBehaviour
     #endregion
     #region State - InMatch
     //TODO -- Gestió del bot per triar un número o cap
-    void selectNumber()
+    public void StartSelectingNumber()
     {
-
+        StartCoroutine(ChooseNumber());
     }
     IEnumerator ChooseNumber()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(Random.Range(randomTimeBeforeChooseNumber.x,randomTimeBeforeChooseNumber.y));
+        int randomPerCent = Random.Range(0, 101);
+        if(probOfEndRound >= randomPerCent)
+        {
+            TurnController.instance.endGame();
+        }
+        else
+        {
+            int selectedNum = Random.Range(GameManager.instance.lastNum + 1, GameManager.instance.lastNum + maxChoosingNum);
+            GameManager.instance.SubmitNum(selectedNum);
+            probOfEndRound += increasedProbOfEndRound;
+        }
+        
     }
     #endregion
 }
