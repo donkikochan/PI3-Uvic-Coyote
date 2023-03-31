@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     [Space(20)]
     public State currState;
     public GameObject keyboardPrefab;
+    public GameObject fullTotemPrefab;
 
     // Start is called before the first frame update
     void Start()
