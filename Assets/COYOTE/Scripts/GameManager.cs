@@ -26,8 +26,6 @@ public class GameManager : MonoBehaviour
     }
     public InfoPanelEvent onInfoPanelChange = new InfoPanelEvent();
 
-    public int lastNum;
-    
     private int sumTotal;
     private TurnController tc;
     private GameObject infoPanel;
@@ -37,8 +35,6 @@ public class GameManager : MonoBehaviour
     public enum State { selectToken, inMatch, endMatch, dead };
     [Space(20)]
     public State currState;
-    public GameObject keyboardPrefab;
-    public GameObject fullTotemPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -100,7 +96,6 @@ public class GameManager : MonoBehaviour
         textsInInfoPanel.Add("State: " + currState);
         textsInInfoPanel.Add("SumTotal (Player): " + myPlayer.sumTotal());
         textsInInfoPanel.Add("SumTotal (Game): " + getSumTotal());
-        textsInInfoPanel.Add("LastNum: " + lastNum);
         onInfoPanelChange.Invoke(textsInInfoPanel);
     }
     
@@ -139,10 +134,6 @@ public class GameManager : MonoBehaviour
             case State.selectToken:
                 //Inici de l'spawn dels Tokens
                 StartCoroutine(SpawnTokens());
-                foreach(PlayerBot bot in FindObjectsOfType<PlayerBot>())
-                {
-                    bot.StartChoosingToken();
-                }
                 break;
             case State.inMatch:
                 tc.startGame();
@@ -241,17 +232,7 @@ public class GameManager : MonoBehaviour
 
     #endregion
     #region InGame State - Methods
-    public void SubmitNum(int submitedNum)
-    {
-        if(submitedNum < lastNum)
-        {
-            Debug.LogWarning("ALERTA: El nombre que has posat és més petit que el lastNum");
-            return;
-        }
-        TurnController.instance.getActualPlayer().setSelectedNum(submitedNum);
-        lastNum = submitedNum;
-        TurnController.instance.nextTurn();
-    }
+
     #endregion
     void checkStateEnded()
     {

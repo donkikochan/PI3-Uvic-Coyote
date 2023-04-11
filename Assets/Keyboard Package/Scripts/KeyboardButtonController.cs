@@ -32,7 +32,7 @@ public class KeyboardButtonController : MonoBehaviour
             Debug.Log(containerText.text + " is pressed");
     }
     public void DeleteLetter() {
-        GetComponentInParent<KeyboardManager>().DeleteLetter();
+        GetComponentInParent<KeyboardManager>().AddLetter(containerText.text);
         Debug.Log("Last char deleted");
     }
     public void SubmitWord() {
