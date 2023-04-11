@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour
 
     private void Awake()
     {
-        transform.position = player.position;
+        transform.position = player.GetChild(0).position;
         transform.parent = player;
     }
     void Start()

@@ -23,6 +23,10 @@ public class KeyboardManager : MonoBehaviour
         {
             textBox.text = textBox.text.Remove(textBox.text.Length - 1, 1);
         }
+        else
+        {
+            TurnController.instance.endGame();
+        }
     }
 
     public void AddLetter(string letter)
@@ -32,8 +36,8 @@ public class KeyboardManager : MonoBehaviour
 
     public void SubmitWord()
     {
-        TurnController.instance.getActualPlayer().setSelectedNum(int.Parse(textBox.text));
-        TurnController.instance.nextTurn();
+        int numOnScreen = int.Parse(textBox.text);
+        GameManager.instance.SubmitNum(numOnScreen);
         textBox.text = "";
         // Debug.Log("Text submitted successfully!");
     }
