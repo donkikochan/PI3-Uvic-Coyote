@@ -61,24 +61,25 @@ public class TurnController : MonoBehaviour
         {
             actPlayer = Random.Range(0, players.Count);
         }
-        getActualPlayer().activeTurn = true;
+        getActualPlayer().setActiveTurn(true);
         turnIndicator.SetActive(true);
         rotateTurnIndicator();
     }   
 
     public void nextTurn()
     {
-        getActualPlayer().activeTurn = false;
+        getActualPlayer().setActiveTurn(false);
         prevPlayer = actPlayer;
         actPlayer++;
         actPlayer = actPlayer >= players.Count ? 0 : actPlayer;
-        getActualPlayer().activeTurn = true;
+        getActualPlayer().setActiveTurn(true);
         rotateTurnIndicator();
     }
     public void endGame()
     {
-        getActualPlayer().activeTurn = false;
-        if(getActualPlayer().getSelectedNum() <= gm.getSumTotal())
+        Debug.Log("Ending Game.");
+        getActualPlayer().setActiveTurn(false);
+        if (getActualPlayer().getSelectedNum() <= gm.getSumTotal())
         {
             getActualPlayer().addLoss();
         }
