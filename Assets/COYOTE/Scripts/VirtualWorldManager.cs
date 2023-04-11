@@ -24,6 +24,7 @@ public class VirtualWorldManager : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log(newPlayer.NickName + " joined to. Player count: " + PhotonNetwork.CurrentRoom.PlayerCount);
+
     }
 
     public override void OnLeftRoom()
