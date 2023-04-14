@@ -449,9 +449,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 02a20000
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 26fbffff786600003e6e00001c800000
+      m_ExpandedIDs: 26fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -751,11 +751,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.010293013, y: 0.9893804, z: -0.114784084, w: 0.08869949}
     speed: 2
-    m_Value: {x: 0.01046506, y: 0.98923516, z: -0.11476723, w: 0.090182446}
+    m_Value: {x: 0.010293013, y: 0.9893804, z: -0.114784084, w: 0.08869949}
   m_Size:
     m_Target: 1.1448578
     speed: 2
-    m_Value: 1.0955577
+    m_Value: 1.1448578
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -821,22 +821,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/COYOTE/Prefabs
+    - Assets/COYOTE/Textures
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/COYOTE/Prefabs
+  - Assets/COYOTE/Textures
   m_LastFoldersGridSize: 16
   m_LastProjectPath: D:\Documents\GitHub\PI3-Uvic-Coyote
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 87}
-    m_SelectedIDs: 529e0000
-    m_LastClickedID: 40530
-    m_ExpandedIDs: 00000000a69d0000a89d0000aa9d0000ac9d0000ae9d0000b29d0000c09d0000b4a000001aa1000000ca9a3b
+    m_SelectedIDs: 989e0000
+    m_LastClickedID: 40600
+    m_ExpandedIDs: 00000000629e0000649e0000669e0000689e00006a9e00006c9e000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -864,7 +864,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000a69d0000a89d0000aa9d0000ac9d0000ae9d0000b09d0000b29d0000
+    m_ExpandedIDs: 00000000629e0000649e0000669e0000689e00006a9e00006c9e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
