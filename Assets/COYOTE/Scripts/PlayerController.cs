@@ -29,8 +29,14 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         //if (newGame)
-        
+        _tc = TurnController.instance;
+        _tc.addPlayer(this);
         loses = 0;
+
+        _keyboard = createChildObject(GameManager.instance.keyboardPrefab, new Vector3(0f, 0.5f, 1.25f));
+        _keyboard.SetActive(false);
+
+        _fullTotem = createChildObject(GameManager.instance.fullTotemPrefab, new Vector3(0f, -1.5f, -1f));
     }
 
     private void Awake()
@@ -39,13 +45,9 @@ public class PlayerController : MonoBehaviour
         {
             playerName = names[Random.Range(0, playerName.Length)];
         }
-        _tc = TurnController.instance;
-        _tc.addPlayer(this);
+        
 
-        _keyboard = createChildObject(GameManager.instance.keyboardPrefab, new Vector3(0f, -1f, 2f));
-        _keyboard.SetActive(false);
-
-        _fullTotem = createChildObject(GameManager.instance.fullTotemPrefab, new Vector3(0f, -2f, -1f));
+        
     }
 
     // Update is called once per frame
