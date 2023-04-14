@@ -33,10 +33,10 @@ public class PlayerController : MonoBehaviour
         _tc.addPlayer(this);
         loses = 0;
 
-        _keyboard = createChildObject(GameManager.instance.keyboardPrefab, new Vector3(0f, 0.5f, 1.25f));
+        _keyboard = createChildObject(GameManager.instance.keyboardPrefab, new Vector3(0f, 0.5f, 1.25f), true);
         _keyboard.SetActive(false);
 
-        _fullTotem = createChildObject(GameManager.instance.fullTotemPrefab, new Vector3(0f, -1.5f, -1f));
+        _fullTotem = createChildObject(GameManager.instance.fullTotemPrefab, new Vector3(0f, -1.5f, -1f),false);
     }
 
     private void Awake()
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
     }
 
     //Suma total dels tokens dels altres jugadors sense contar el teu token
-    public int sumTotal()
+    public int MySumTotal()
     {
         int sumTotal = 0;
         foreach(PlayerController player in _tc.getPlayers())
@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
         loses++;
         Debug.Log("Loss added to: ["+playerName+"], actual loses: " + loses);
     }
-    GameObject createChildObject(GameObject prefab, Vector3 pos)
+    GameObject createChildObject(GameObject prefab, Vector3 pos, bool isChild)
     {
         GameObject obj = Instantiate(prefab, transform.position, Quaternion.identity);
         obj.transform.parent = transform;
@@ -121,6 +121,7 @@ public class PlayerController : MonoBehaviour
 
         obj.transform.LookAt(transform);
         obj.transform.localRotation = new Quaternion(0,obj.transform.localRotation.y, obj.transform.localRotation.z, obj.transform.localRotation.w);
+        if(!isChild) obj.transform.parent = null;
         return obj;
     }
 
