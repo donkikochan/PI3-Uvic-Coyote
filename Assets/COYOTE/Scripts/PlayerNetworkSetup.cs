@@ -27,7 +27,6 @@ public class PlayerNetworkSetup : MonoBehaviourPunCallbacks
             SetLayerRecursively(AvatarHeadGameObject, 6);
             SetLayerRecursively(AvatarBodyGameObject, 7);
 
-            MainAvatarGameObject.AddComponent<AudioListener>();
 
         }
         else
