@@ -106,6 +106,10 @@ public class TurnController : MonoBehaviour
     IEnumerator EndGameTimer()
     {
         yield return new WaitForSeconds(secondsAfterEndGame);
+        foreach(PlayerController pc in players)
+        {
+            pc.eraseToken();
+        }
         GameManager.instance.changeState(GameManager.State.selectToken);
     }
 }
