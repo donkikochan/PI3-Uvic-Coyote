@@ -9,9 +9,10 @@ public class TurnController : MonoBehaviour
 
     private List<PlayerController> players = new List<PlayerController>();
     public bool playerIsFirst;
+    public float secondsAfterEndGame;
     public GameObject turnIndicator;
     public GameManager gm;
-    private int actPlayer, prevPlayer;
+    private int actPlayer, turnNum;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +40,10 @@ public class TurnController : MonoBehaviour
     {
         return players;
     }
+    public int GetTurnNum()
+    {
+        return turnNum;
+    }
     public void addPlayer(PlayerController newPlayer)
     {
         Debug.Log("addPlayer");
@@ -61,6 +66,7 @@ public class TurnController : MonoBehaviour
         {
             actPlayer = Random.Range(0, players.Count);
         }
+        turnNum = 1;
         getActualPlayer().setActiveTurn(true);
         turnIndicator.SetActive(true);
         rotateTurnIndicator();
@@ -69,7 +75,8 @@ public class TurnController : MonoBehaviour
     public void nextTurn()
     {
         getActualPlayer().setActiveTurn(false);
-        prevPlayer = actPlayer;
+        //prevPlayer = actPlayer;
+        turnNum++;
         actPlayer++;
         actPlayer = actPlayer >= players.Count ? 0 : actPlayer;
         getActualPlayer().setActiveTurn(true);
@@ -87,6 +94,7 @@ public class TurnController : MonoBehaviour
         {
             getActualPlayer().addLoss();
         }
+        StartCoroutine("EndGameTimer");
         turnIndicator.SetActive(false);
     }
     void rotateTurnIndicator()
@@ -94,6 +102,11 @@ public class TurnController : MonoBehaviour
         Vector3 tiLookingPoint = getActualPlayer().transform.position;
         tiLookingPoint.y = turnIndicator.transform.position.y;
         turnIndicator.transform.LookAt(tiLookingPoint);
+    }
+    IEnumerator EndGameTimer()
+    {
+        yield return new WaitForSeconds(secondsAfterEndGame);
+        GameManager.instance.changeState(GameManager.State.selectToken);
     }
 }
 
