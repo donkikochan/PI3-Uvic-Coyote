@@ -80,7 +80,8 @@ public class PlayerBot : MonoBehaviour
         }
         else
         {
-            int selectedNum = Random.Range(GameManager.instance.lastNum + 1, GameManager.instance.lastNum + maxChoosingNum);
+            int referenceNum = TurnController.instance.GetTurnNum() != 1 ? _pc.MySumTotal() : GameManager.instance.lastNum;
+            int selectedNum = Random.Range(referenceNum + 1, referenceNum + maxChoosingNum);
             GameManager.instance.SubmitNum(selectedNum);
             probOfEndRound += increasedProbOfEndRound;
         }
