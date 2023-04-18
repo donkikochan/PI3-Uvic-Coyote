@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
         }
 
         textsInInfoPanel.Add("State: " + currState);
-        textsInInfoPanel.Add("SumTotal (Player): " + myPlayer.sumTotal());
+        textsInInfoPanel.Add("SumTotal (Player): " + myPlayer.MySumTotal());
         textsInInfoPanel.Add("SumTotal (Game): " + getSumTotal());
         textsInInfoPanel.Add("LastNum: " + lastNum);
         onInfoPanelChange.Invoke(textsInInfoPanel);
@@ -132,17 +132,13 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    void changeState(State state)
+    public void changeState(State state)
     {
         switch (state)
         {
             case State.selectToken:
                 //Inici de l'spawn dels Tokens
                 StartCoroutine(SpawnTokens());
-                foreach(PlayerBot bot in FindObjectsOfType<PlayerBot>())
-                {
-                    bot.StartChoosingToken();
-                }
                 break;
             case State.inMatch:
                 tc.startGame();
@@ -214,6 +210,10 @@ public class GameManager : MonoBehaviour
                 tokenSpawnPos.localPosition = tokenSpawnPos.localPosition + new Vector3(0, 0, addDistanceFromTokenSpawnerCenter);
             }
             yield return new WaitForSeconds(0.1f);
+        }
+        foreach (PlayerBot bot in FindObjectsOfType<PlayerBot>())
+        {
+            bot.StartChoosingToken();
         }
         updateBots();
         
