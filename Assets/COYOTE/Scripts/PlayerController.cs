@@ -43,13 +43,26 @@ public class PlayerController : MonoBehaviour
     {
         if (GetComponent<PlayerBot>() != null)
         {
-            playerName = names[Random.Range(0, playerName.Length)];
+            
         }
         
 
         
     }
-
+    public void setMine(bool b)
+    {
+        isMine = b;
+        if(!isMine)
+        {
+            gameObject.AddComponent<PlayerBot>();
+            playerName = names[Random.Range(0, names.Count)];
+        }
+        else
+        {
+            playerName = "Mi Player";
+            Camera.main.GetComponent<CameraController>().setPlayer(transform);
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -84,6 +97,10 @@ public class PlayerController : MonoBehaviour
         {
             OnPlayerAddedToken();
         }
+    }
+    public void eraseToken()
+    {
+        Destroy(actualToken.gameObject);
     }
     public void setActiveTurn(bool b)
     {

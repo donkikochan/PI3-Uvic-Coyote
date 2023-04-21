@@ -13,8 +13,7 @@ public class CameraController : MonoBehaviour
 
     private void Awake()
     {
-        transform.position = player.GetChild(0).position;
-        transform.parent = player;
+        
     }
     void Start()
     {
@@ -23,10 +22,16 @@ public class CameraController : MonoBehaviour
         //Cursor.lockState = CursorLockMode.Locked;
 
     }
-
+    public void setPlayer(Transform p)
+    {
+        player = p;
+        transform.position = player.GetChild(0).position;
+        transform.parent = player;
+    }
 
     void Update()
     {
+        if (player == null) return;
         // Collect Mouse Input
 
         float inputX = Input.GetAxis("Mouse X") * mouseSensitivity;
