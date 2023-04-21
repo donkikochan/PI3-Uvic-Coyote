@@ -227,6 +227,19 @@ public class GameManager : MonoBehaviour
         updateBots();
         
     }
+    public int lowestNumOnTokens()
+    {
+        int lowestNumber = allTokenNums[0]; // Inicializamos la variable con el primer elemento del array
+
+        for (int i = 1; i < allTokenNums.Count; i++) // Comenzamos a buscar a partir del segundo elemento
+        {
+            if (allTokenNums[i] < lowestNumber) // Si encontramos un número menor, lo actualizamos en la variable lowestNumber
+            {
+                lowestNumber = allTokenNums[i];
+            }
+        }
+        return lowestNumber;
+    }
     void updateBots()
     {
         foreach (PlayerBot bot in FindObjectsOfType<PlayerBot>())
@@ -252,7 +265,7 @@ public class GameManager : MonoBehaviour
     #region InGame State - Methods
     public void SubmitNum(int submitedNum)
     {
-        if(submitedNum < lastNum)
+        if(submitedNum < lastNum && tc.turnNum != 1)
         {
             Debug.LogWarning("ALERTA: El nombre que has posat és més petit que el lastNum");
             return;

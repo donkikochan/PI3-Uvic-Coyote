@@ -77,7 +77,9 @@ public class PlayerController : MonoBehaviour
         {
             sumTotal += player.tokenNum;
         }
+        
         sumTotal -= tokenNum;
+        Debug.Log("PlayerController of " + name + ": has MySumTotal at " + sumTotal);
         return sumTotal;
     }
     public void setToken(TokenController tc)
