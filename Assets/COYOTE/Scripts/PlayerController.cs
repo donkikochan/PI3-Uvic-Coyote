@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     //TODO -- Borrar aquest "isMine" quan s'implementi el multiplayer
     public bool isMine;
     public List<string> names = new List<string>();
+    public List<GameObject> skinPrefabs = new List<GameObject>();
     private TurnController _tc;
     private GameObject _keyboard;
     private GameObject _fullTotem;
@@ -56,11 +57,13 @@ public class PlayerController : MonoBehaviour
         {
             gameObject.AddComponent<PlayerBot>();
             playerName = names[Random.Range(0, names.Count)];
+            Instantiate(skinPrefabs[0], transform);
         }
         else
         {
             playerName = "Mi Player";
             Camera.main.GetComponent<CameraController>().setPlayer(transform);
+            Instantiate(skinPrefabs[Random.Range(1,skinPrefabs.Count)], transform);
         }
     }
     // Update is called once per frame
