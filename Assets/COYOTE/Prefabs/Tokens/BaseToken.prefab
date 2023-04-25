@@ -51,6 +51,7 @@ MonoBehaviour:
   greenTokenModelPrefab: {fileID: 4101133283047245879, guid: b0267f6a83bdbb340863107acca19c15, type: 3}
   blueTokenModelPrefab: {fileID: 7505603894702009264, guid: 58234c04b652f7249a4847dcd840e1ee, type: 3}
   num: 0
+  isSelected: 0
 --- !u!54 &8847183818913639335
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -65,7 +66,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 10
   m_CollisionDetection: 0
 --- !u!65 &9060932847030327046
 BoxCollider:

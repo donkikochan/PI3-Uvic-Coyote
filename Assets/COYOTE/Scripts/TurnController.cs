@@ -9,10 +9,11 @@ public class TurnController : MonoBehaviour
 
     private List<PlayerController> players = new List<PlayerController>();
     public bool playerIsFirst;
+    public int turnNum;
     public float secondsAfterEndGame;
     public GameObject turnIndicator;
     public GameManager gm;
-    private int actPlayer, turnNum;
+    private int actPlayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +36,10 @@ public class TurnController : MonoBehaviour
     {
         return players[actPlayer];
     }
+    public PlayerController getPrevPlayer()
+    {
+        return players[actPlayer - 1 < 0 ? players.Count - 1 : actPlayer];
+    }
 
     public List<PlayerController> getPlayers()
     {
@@ -46,7 +51,7 @@ public class TurnController : MonoBehaviour
     }
     public void addPlayer(PlayerController newPlayer)
     {
-        Debug.Log("addPlayer");
+        Debug.Log("addPlayer with name: "+newPlayer.name);
         players.Add(newPlayer);
     }
     public void startGame()
@@ -66,6 +71,7 @@ public class TurnController : MonoBehaviour
         {
             actPlayer = Random.Range(0, players.Count);
         }
+        gm.lastNum = gm.lowestNumOnTokens();
         turnNum = 1;
         getActualPlayer().setActiveTurn(true);
         turnIndicator.SetActive(true);
@@ -86,13 +92,13 @@ public class TurnController : MonoBehaviour
     {
         Debug.Log("Ending Game.");
         getActualPlayer().setActiveTurn(false);
-        if (getActualPlayer().getSelectedNum() <= gm.getSumTotal())
+        if (getPrevPlayer().getSelectedNum() <= gm.getSumTotal())
         {
             getActualPlayer().addLoss();
         }
         else
         {
-            getActualPlayer().addLoss();
+            getPrevPlayer().addLoss();
         }
         StartCoroutine("EndGameTimer");
         turnIndicator.SetActive(false);
