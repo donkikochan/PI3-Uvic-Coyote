@@ -74,7 +74,7 @@ public class PlayerBot : MonoBehaviour
     {
         yield return new WaitForSeconds(Random.Range(randomTimeBeforeChooseNumber.x,randomTimeBeforeChooseNumber.y));
         int randomPerCent = Random.Range(0, 101);
-        if(probOfEndRound >= randomPerCent)
+        if(probOfEndRound >= randomPerCent && TurnController.instance.GetTurnNum() != 1)
         {
             TurnController.instance.endGame();
         }

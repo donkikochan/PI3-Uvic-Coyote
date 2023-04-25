@@ -38,7 +38,7 @@ public class TurnController : MonoBehaviour
     }
     public PlayerController getPrevPlayer()
     {
-        return players[actPlayer - 1 < 0 ? players.Count - 1 : actPlayer];
+        return players[actPlayer - 1 < 0 ? players.Count - 1 : actPlayer-1];
     }
 
     public List<PlayerController> getPlayers()
@@ -94,10 +94,12 @@ public class TurnController : MonoBehaviour
         getActualPlayer().setActiveTurn(false);
         if (getPrevPlayer().getSelectedNum() <= gm.getSumTotal())
         {
+            Debug.Log("ActualPlayer Loss: "+ getPrevPlayer().getSelectedNum()+" is less than "+ gm.getSumTotal());
             getActualPlayer().addLoss();
         }
         else
         {
+            Debug.Log("PreviousPlayer Loss: "+ getPrevPlayer().getSelectedNum()+ " is more than "+gm.getSumTotal());
             getPrevPlayer().addLoss();
         }
         StartCoroutine("EndGameTimer");
