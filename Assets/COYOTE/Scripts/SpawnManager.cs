@@ -15,6 +15,7 @@ public class SpawnManager : MonoBehaviour
         int index = 0;
         if (PhotonNetwork.IsConnectedAndReady)
         {
+            Debug.Log("PhotonNetwork.IsConnectedAndReady");
             index = PhotonNetwork.PlayerList.Length;
             Debug.Log("[SpawnManager] Num of players: " + index);
             spawnPosition.x = points[index].transform.position.x;
