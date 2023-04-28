@@ -147,6 +147,7 @@ public class GameManager : MonoBehaviour
         {
             case State.selectToken:
                 //Inici de l'spawn dels Tokens
+                LastNumScreenController.UpdateInfoTexts();
                 StartCoroutine(SpawnTokens());
                 break;
             case State.inMatch:
@@ -273,6 +274,7 @@ public class GameManager : MonoBehaviour
         TurnController.instance.getActualPlayer().setSelectedNum(submitedNum);
         lastNum = submitedNum;
         TurnController.instance.nextTurn();
+        LastNumScreenController.UpdateInfoTexts();
     }
     #endregion
     void checkStateEnded()

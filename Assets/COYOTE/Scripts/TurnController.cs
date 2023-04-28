@@ -71,9 +71,9 @@ public class TurnController : MonoBehaviour
         {
             actPlayer = Random.Range(0, players.Count);
         }
-        gm.lastNum = gm.lowestNumOnTokens();
         turnNum = 1;
         getActualPlayer().setActiveTurn(true);
+        LastNumScreenController.UpdateInfoTexts();
         turnIndicator.SetActive(true);
         rotateTurnIndicator();
     }   
