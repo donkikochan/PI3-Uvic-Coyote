@@ -434,6 +434,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7056899649415395274}
+  - component: {fileID: 1390352074046184545}
   m_Layer: 0
   m_Name: NATIVE MAN
   m_TagString: Untagged
@@ -460,3 +461,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1390352074046184545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7684535673458257264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f75d843169f67a441875e98d02fbf5fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainAvatarTransform: {fileID: 7056899649415395274}
+  HeadTransform: {fileID: 3297752654900731896}
+  BodyTransform: {fileID: 7431303863499707188}
+  HandLeftTransform: {fileID: 5261947249584764934}
+  HandRightTransform: {fileID: 4430448797102013433}
