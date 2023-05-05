@@ -18,9 +18,9 @@ public class SpawnManager : MonoBehaviour
             Debug.Log("PhotonNetwork.IsConnectedAndReady");
             index = PhotonNetwork.PlayerList.Length;
             Debug.Log("[SpawnManager] Num of players: " + index);
-            spawnPosition.x = points[index].transform.position.x;
-            spawnPosition.y = points[index].transform.position.y;
-            spawnPosition.z = points[index].transform.position.z;
+            spawnPosition.x = points[index-1].transform.position.x;
+            spawnPosition.y = points[index-1].transform.position.y;
+            spawnPosition.z = points[index-1].transform.position.z;
             PhotonNetwork.Instantiate(GenericVRPlayerPrefab.name, spawnPosition, Quaternion.identity);
         }
     }

@@ -50,13 +50,13 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         tc = TurnController.instance;
-        for(int i = 0; i < playerSpawnPts.childCount; i++)
-        {
-            GameObject newPlayer = Instantiate(playerPrefab, playerSpawnPts.GetChild(i).position, playerSpawnPts.GetChild(i).rotation);
-            if (i == 0) {
-                newPlayer.GetComponent<PlayerController>().setMine(true);
-            } else { newPlayer.GetComponent<PlayerController>().setMine(false); };
-        }
+        //for(int i = 0; i < playerSpawnPts.childCount; i++)
+        //{
+        //    GameObject newPlayer = Instantiate(playerPrefab, playerSpawnPts.GetChild(i).position, playerSpawnPts.GetChild(i).rotation);
+        //    if (i == 0) {
+        //        newPlayer.GetComponent<PlayerController>().setMine(true);
+        //    } else { newPlayer.GetComponent<PlayerController>().setMine(false); };
+        //}
         changeState(State.selectToken);
         onInfoPanelChange.AddListener(infoPanelListener);
         showInfoPanel(false);

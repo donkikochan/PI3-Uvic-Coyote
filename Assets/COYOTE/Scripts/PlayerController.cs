@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class PlayerController : MonoBehaviour
 {
@@ -27,9 +28,11 @@ public class PlayerController : MonoBehaviour
      * GetChild(2) -> Top
      */
     List<int> numRecord = new List<int>();
+    PhotonView _photonView;
     void Start()
     {
         //if (newGame)
+        _photonView = GetComponent<PhotonView>();
         _tc = TurnController.instance;
         _tc.addPlayer(this);
         loses = 0;
