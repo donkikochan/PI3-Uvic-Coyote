@@ -74,7 +74,7 @@ public class TokenController : MonoBehaviour
     {
         //Assignar aquest token al jugador
         PlayerController pc = Camera.main.transform.parent.GetComponent<PlayerController>();
-        if (!pc.hasToken())
+        if (!pc.hasToken() && !GameManager.instance.autoSetTokens)
         {
             pc.setToken(this);
             //TODO -- Borrar aquest "isMine" quan s'implementi el multiplayer

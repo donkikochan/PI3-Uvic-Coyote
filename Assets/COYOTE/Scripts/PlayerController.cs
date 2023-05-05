@@ -128,11 +128,12 @@ public class PlayerController : MonoBehaviour
     {
         selectedNum = num;
     }
-    public void addLoss()
+    public int addLoss()
     {
         _fullTotem.transform.GetChild(loses).gameObject.SetActive(true);
         loses++;
         Debug.Log("Loss added to: ["+playerName+"], actual loses: " + loses);
+        return loses;
     }
     GameObject createChildObject(GameObject prefab, Vector3 pos, bool isChild)
     {

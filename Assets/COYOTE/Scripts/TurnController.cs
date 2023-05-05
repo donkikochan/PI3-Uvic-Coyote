@@ -76,7 +76,7 @@ public class TurnController : MonoBehaviour
         LastNumScreenController.UpdateInfoTexts();
         turnIndicator.SetActive(true);
         rotateTurnIndicator();
-    }   
+    }
 
     public void nextTurn()
     {
@@ -95,15 +95,29 @@ public class TurnController : MonoBehaviour
         if (getPrevPlayer().getSelectedNum() <= gm.getSumTotal())
         {
             Debug.Log("ActualPlayer Loss: "+ getPrevPlayer().getSelectedNum()+" is less than "+ gm.getSumTotal());
-            getActualPlayer().addLoss();
+            if (getActualPlayer().addLoss() >= 3)
+            {
+                StartCoroutine("EndGameTimer");
+            }
+            else
+            {
+                StartCoroutine("NextGameTimer");
+            }
         }
         else
         {
             Debug.Log("PreviousPlayer Loss: "+ getPrevPlayer().getSelectedNum()+ " is more than "+gm.getSumTotal());
-            getPrevPlayer().addLoss();
+            if (getPrevPlayer().addLoss() >= 3)
+            {
+                StartCoroutine("EndGameTimer");
+            }
+            else
+            {
+                StartCoroutine("NextGameTimer");
+            }
         }
-        StartCoroutine("EndGameTimer");
-        turnIndicator.SetActive(false);
+        
+        
     }
     void rotateTurnIndicator()
     {
@@ -111,14 +125,25 @@ public class TurnController : MonoBehaviour
         tiLookingPoint.y = turnIndicator.transform.position.y;
         turnIndicator.transform.LookAt(tiLookingPoint);
     }
-    IEnumerator EndGameTimer()
+    IEnumerator NextGameTimer()
     {
+        turnIndicator.SetActive(false);
         yield return new WaitForSeconds(secondsAfterEndGame);
         foreach(PlayerController pc in players)
         {
             pc.eraseToken();
         }
         GameManager.instance.changeState(GameManager.State.selectToken);
+    }
+    IEnumerator EndGameTimer()
+    {
+        turnIndicator.SetActive(false);
+        yield return new WaitForSeconds(secondsAfterEndGame);
+        foreach (PlayerController pc in players)
+        {
+            pc.eraseToken();
+        }
+        GameManager.instance.changeState(GameManager.State.endMatch);
     }
 }
 

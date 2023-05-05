@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
     public GameObject tokenPrefab;
     public Transform tokenSpawner;
 
+    [Header("Gestió del joc")]
+    public bool autoSetTokens;
+
     List<TokenController> allTokens = new List<TokenController>();
     #endregion
 
@@ -224,6 +227,16 @@ public class GameManager : MonoBehaviour
         foreach (PlayerBot bot in FindObjectsOfType<PlayerBot>())
         {
             bot.StartChoosingToken();
+        }
+        if (autoSetTokens)
+        {
+            foreach( PlayerController player in FindObjectsOfType<PlayerController>())
+            {
+                if(player.gameObject.GetComponent<PlayerBot>() == null)
+                {
+                    player.setToken(allTokens[Random.Range(0,allTokens.Count)]);
+                }
+            }
         }
         updateBots();
         
