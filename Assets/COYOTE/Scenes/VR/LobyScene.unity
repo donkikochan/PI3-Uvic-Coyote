@@ -38051,8 +38051,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 4.14}
+  m_SizeDelta: {x: 0, y: 8.28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1641991868
 MonoBehaviour:
@@ -38076,8 +38076,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Enter To Game
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7aa6c4d34242942d899e047f8c475d48, type: 2}
+  m_sharedMaterial: {fileID: 2349950471776797022, guid: 7aa6c4d34242942d899e047f8c475d48, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -50601,8 +50601,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Players : 0'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7aa6c4d34242942d899e047f8c475d48, type: 2}
+  m_sharedMaterial: {fileID: 2349950471776797022, guid: 7aa6c4d34242942d899e047f8c475d48, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -50626,8 +50626,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 41.9
+  m_fontSizeBase: 41.9
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
